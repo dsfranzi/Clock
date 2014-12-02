@@ -1,7 +1,10 @@
+using System.Windows;
+using System.Windows.Input;
+using Clock.Model.ClockService;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
-namespace Clock.ViewModel
-{
+namespace Clock.ViewModel {
     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
@@ -14,13 +17,11 @@ namespace Clock.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
-    {
+    public class MainViewModel : ViewModelBase {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
-        {
+        public MainViewModel(IClockService clockService) {
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -29,6 +30,13 @@ namespace Clock.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        public ICommand ApplicationCloseCommand {
+            get
+            {
+                return new RelayCommand(() => Application.Current.Shutdown());
+            }
         }
     }
 }
